@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import '../model/models/user_models.dart';
 
 import '../model/repositories/auth_repository.dart';
-import 'package:using_mvvm_provider/utils/routes/route_names.dart';
-import 'package:using_mvvm_provider/utils/utils.dart';
-import 'package:using_mvvm_provider/view_model/user_view_model.dart';
+import '../utils/routes/route_names.dart';
+import '../utils/utils.dart';
+import '../view_model/user_view_model.dart';
 
 class AuthViewModel with ChangeNotifier {
   // final SharedPreferences prefs = await SharedPreferences.getInstance();

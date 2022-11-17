@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:using_mvvm_provider/view_model/auth_view_model.dart';
-import 'package:using_mvvm_provider/utils/routes/route_names.dart';
-import 'package:using_mvvm_provider/utils/routes/routes.dart';
-import 'package:using_mvvm_provider/view_model/user_view_model.dart';
+import '../view_model/auth_view_model.dart';
+import '../utils/routes/route_names.dart';
+import '../utils/routes/routes.dart';
+import '../view_model/user_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) {
-         return AuthViewModel(context);
+          return AuthViewModel(context);
         }),
         ChangeNotifierProvider(create: (_) {
           return UserViewModel();

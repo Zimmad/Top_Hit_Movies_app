@@ -1,44 +1,34 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:using_mvvm_provider/view_model/auth_view_model.dart';
-import 'package:using_mvvm_provider/utils/routes/route_names.dart';
-
+import '../utils/routes/route_names.dart';
+import '../view_model/auth_view_model.dart';
 import '../utils/utils.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpSceen extends StatefulWidget {
+  const SignUpSceen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpSceen> createState() => _SignUpSceenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpSceenState extends State<SignUpSceen> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController paswordController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
 
-  ValueNotifier<bool> obscureText = ValueNotifier<bool>(true);
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    paswordController.dispose();
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
-    obscureText.dispose();
-    return super.dispose();
-  }
+  ValueNotifier obscureText = ValueNotifier(true);
 
   @override
   Widget build(BuildContext context) {
-    bool isHover = false;
-    final authViewModel = Provider.of<AuthViewModel>(context);
+    bool isHovered = false;
+
+    AuthViewModel authViewModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login '),
+        title: const Text('SignUP '),
         centerTitle: true,
       ),
       body: Center(
@@ -46,29 +36,23 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              controller: emailController,
-              focusNode: emailFocusNode,
-              onFieldSubmitted: (value) {
-                // FocusScope.of(context).requestFocus(passwordFocusNode);
-                Utils.changeFieldFocus(
-                    context: context,
-                    current: emailFocusNode,
-                    next: passwordFocusNode);
-              },
-              decoration: const InputDecoration(
-                hintText: 'Email',
-                labelText: 'Email',
-                prefixIcon: Icon(
-                  Icons.alternate_email,
-                ),
-              ),
-            ),
+                controller: emailController,
+                focusNode: emailFocusNode,
+                decoration: const InputDecoration(
+                    hintText: 'Email',
+                    labelText: 'Email',
+                    prefixIcon: Icon(Icons.alternate_email_outlined)),
+                onFieldSubmitted: (_) {
+                  Utils.changeFieldFocus(
+                      context: context,
+                      current: emailFocusNode,
+                      next: passwordFocusNode);
+                }),
             ValueListenableBuilder(
               valueListenable: obscureText,
               builder: (BuildContext context, dynamic value, Widget? child) {
                 return TextFormField(
-                  controller: paswordController,
+                  controller: passwordController,
                   focusNode: passwordFocusNode,
                   obscureText: obscureText.value,
                   obscuringCharacter: '*',
@@ -76,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: 'Passward',
                     labelText: 'Passward',
                     prefixIcon: const Icon(
-                      Icons.password_sharp,
+                      Icons.password_outlined,
                     ),
                     suffixIcon: InkWell(
                       child: obscureText.value
@@ -96,55 +80,59 @@ class _LoginScreenState extends State<LoginScreen> {
             TextButton(
               onPressed: () {
                 if (emailController.text.isEmpty) {
-                  Utils.flushBarErrorMessage('Please Enter a message', context);
-                } else if (paswordController.text.isEmpty ||
-                    paswordController.text.length < 8) {
+                  Utils.flushBarErrorMessage(
+                      'Please Enter your user name', context);
+                } else if (passwordController.text.isEmpty ||
+                    passwordController.text.length < 8) {
                   Utils.toastMessage(
                       'Please Enter a passward of 8 or more characters');
                 } else {
                   Map data = {
                     'email': emailController.text,
-                    'password': paswordController.text.toString()
+                    'password': passwordController.text.toString()
                   };
 
-                  authViewModel.loginApi(data, context);
-                  print('Data Saved to Api');
+                  authViewModel.signUpApi(data, context);
                 }
               },
-              child: authViewModel.loading
+              child: authViewModel.signUpLoading
                   ? const CircularProgressIndicator(
                       color: Colors.black,
                       backgroundColor: Colors.white,
                     )
-                  : const Text('Log in '),
+                  : const Text('Signed Up '),
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
-            InkWell(
-              child: Center(
-                child: Text(
-                  'Don\'t have an account ?  Sign Up',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: isHover
-                          ? Colors.blue
-                          : Color.fromARGB(255, 16, 16, 16)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Alredy have an account?  ',
+                  style: TextStyle(fontSize: 16),
                 ),
-              ),
-              onTap: () {
-                setState() {
-                  isHover = false;
-                }
-
-                Navigator.of(context).pushReplacementNamed(RouteNames.signUp);
-                isHover = true;
-              },
-              // onHover: (value) {
-              //   setState(() {
-              //     isHover = value;
-              //   });
-              // },
+                const SizedBox(height: 40),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(RouteNames.logIn);
+                  },
+                  onHover: (value) {
+                    setState(() {
+                      isHovered = true;
+                    });
+                  },
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: isHovered
+                            ? Colors.blue
+                            : Color.fromARGB(255, 96, 94, 217)),
+                  ),
+                ),
+              ],
             )
           ],
         ),

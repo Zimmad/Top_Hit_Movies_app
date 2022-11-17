@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:using_mvvm_provider/utils/routes/route_names.dart';
-import 'package:using_mvvm_provider/view/home_screen.dart';
-import 'package:using_mvvm_provider/view/login_view.dart';
-import 'package:using_mvvm_provider/view/splash_screen.dart';
+import './route_names.dart';
+import '../../view/home_screen.dart';
+import '../../view/login_view.dart';
+import '../../view/splash_screen.dart';
 import '../../view/sign_up_screen.dart';
 
 class Routes {

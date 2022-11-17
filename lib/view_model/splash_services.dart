@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import '../model/models/user_models.dart';
-import 'package:using_mvvm_provider/utils/routes/route_names.dart';
+import '../utils/routes/route_names.dart';
 
 import './user_view_model.dart';
 

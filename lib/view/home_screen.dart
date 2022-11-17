@@ -3,8 +3,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import '../model/data/responce/status.dart';
-import 'package:using_mvvm_provider/utils/utils.dart';
-import 'package:using_mvvm_provider/view_model/home_view_model.dart';
+import '../utils/utils.dart';
+import '../view_model/home_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
