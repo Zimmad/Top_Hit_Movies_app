@@ -46,8 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
+              keyboardType: TextInputType.emailAddress,
               controller: emailController,
-              focusNode: passwordFocusNode,
+              focusNode: emailFocusNode,
               onFieldSubmitted: (value) {
                 // FocusScope.of(context).requestFocus(passwordFocusNode);
                 Utils.changeFieldFocus(
@@ -121,18 +122,29 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 40,
             ),
             InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed(RouteNames.signUp);
-              },
-              onHover: (value) {
-                setState(() {
-                  isHover = value;
-                });
-              },
-              child: Text(
-                'Don\'t have an account ?  Sign Up',
-                style: TextStyle(color: isHover ? Colors.blue : Colors.white),
+              child: Center(
+                child: Text(
+                  'Don\'t have an account ?  Sign Up',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: isHover
+                          ? Colors.blue
+                          : Color.fromARGB(255, 16, 16, 16)),
+                ),
               ),
+              onTap: () {
+                setState() {
+                  isHover = false;
+                }
+
+                Navigator.of(context).pushReplacementNamed(RouteNames.signUp);
+                isHover = true;
+              },
+              // onHover: (value) {
+              //   setState(() {
+              //     isHover = value;
+              //   });
+              // },
             )
           ],
         ),

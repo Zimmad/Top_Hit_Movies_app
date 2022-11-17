@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) {
-          AuthViewModel(context);
+         return AuthViewModel(context);
         }),
         ChangeNotifierProvider(create: (_) {
-          UserViewModel();
+          return UserViewModel();
         })
       ],
       child: MaterialApp(
